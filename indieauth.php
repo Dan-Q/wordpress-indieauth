@@ -47,10 +47,10 @@ class IndieAuthPlugin {
 			$redirect_to = array_key_exists( 'redirect_to', $_REQUEST ) ? $_REQUEST['redirect_to'] : null;
 			// redirect to indieauth.com
 			wp_redirect( 'http://indieauth.com/auth?me=' . urlencode( $_POST['indieauth_identifier'] ) . '&redirect_uri=' . wp_login_url( $redirect_to ) );
-		} elseif ( array_key_exists( 'token', $_REQUEST ) ) {
-			$token = $_REQUEST['token'];
+		} elseif ( array_key_exists( 'code', $_REQUEST ) ) {
+			$code = $_REQUEST['code'];
 
-			$response = wp_remote_get( 'http://indieauth.com/verify?token=' . urlencode( $token ) );
+			$response = wp_remote_get( 'http://indieauth.com/verify?code=' . urlencode( $code ) );
 			$response = wp_remote_retrieve_body( $response );
 			$response = json_decode( $response, true );
 
